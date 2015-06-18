@@ -1,1 +1,101 @@
 /* Empty. Add your own CSS if you like */
+.button {
+    border: 0;
+}
+
+.like {
+    width:50%;
+    display:inline-block;
+}
+.button-like {
+    width: 100%;
+    height:20vw;
+    border-top-right-radius: 2vw;
+    border-bottom-right-radius: 2vw;
+    overflow:hidden;
+
+    background: #33CC00;
+    box-shadow: 0 0 3px gray;
+}
+.like a {
+    display:block;
+    float:left;
+    width:100%;
+    padding-top:10vw;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:#E0E0E0;
+    font-size: 8em;
+    font-size: 15vw;
+    font-weight:bold;
+    text-decoration:none;
+}
+.dislike {
+    width:50%;
+    display:inline-block;
+}
+.button-dislike {
+    width: 100%;
+    height:20vw;
+    border-top-left-radius: 2vw;
+    border-bottom-left-radius: 2vw;
+    overflow:hidden;
+
+    background: #FF3333;
+    box-shadow: 0 0 3px gray;
+}
+.dislike a {
+    display:block;
+    float:left;
+    width:100%;
+    padding-top:10vw;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color: #E0E0E0;
+    font-size: 8em;
+    font-size: 15vw;
+    font-weight:bold;
+    text-decoration:none;
+}
+.controls {
+    text-align: center;
+    padding : 2vw;
+}
+.addCard {
+    font-size: 5vw;
+    text-align: center;
+    margin: 2vw;
+}
+.statBarLeft {
+    text-align: left;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 3vw;
+    width: 50%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+.statBarRight {
+    text-align: right;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 3vw;
+    width: 50%;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+/*.ul {*/
+    /*font-color: #000000;*/
+    /*font-weight: normal;*/
+    /*text-decoration: none;*/
+/*}*/
+/*.ul .li {*/
+    /*font-color: #000000;*/
+    /*font-weight: normal;*/
+    /*text-decoration: none;*/
+/*}*/
+/*.item {*/
+    /*border-bottom: 1px;*/
+/*}*/

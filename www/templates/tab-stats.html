@@ -1,10 +1,27 @@
 <ion-view view-title="Statistics">
+  <ion-nav-buttons side="right">
+    <!--<div class="buttons">-->
+    <button class="button button-icon ion-navicon" ng-click="popover.show($event)"> Filter</button>
+    <!--</div>-->
+  </ion-nav-buttons>
   <ion-content>
     <!--<div ng-switch on="okStats">-->
-      <div class="list card" ng-repeat="place in placesSwiped">
+      <div class="list card" ng-repeat="placeIndex in placesSwiped"> <!--  | activityFilter:places:currentActivity -->
         <div>
-          <div class="item item-divider">{{place.name}}: {{place.part}}</div>
-          <div class="item item-body"></div>
+          <div class="item item-divider">
+            {{places[placeIndex].name}}: {{places[placeIndex].activity}}
+            <span><p style="pull-right">Total Votes: {{totalVotes(places[placeIndex])}}</p></span>
+            <div class="item-icon-right" style="color:#33CC00" ng-if="moreLiked(places[placeIndex])"><i class="icon ion-happy-outline"></i></div>
+            <div class="item-icon-right" style="color:#FF3333" ng-if="!moreLiked(places[placeIndex])"><i class="icon ion-sad-outline"></i></div>
+          </div>
+          <div class="item item-body">
+            <div>
+              <div ng-style="likeBarStyle(places[placeIndex])" ng-if="places[placeIndex].likes !== 0"></div><div ng-style="dislikeBarStyle(places[placeIndex])" ng-if="places[placeIndex].dislikes !== 0"></div>
+            </div>
+            <div>
+              <div class="statBarLeft" ng-if="places[placeIndex].likes !== 0">{{places[placeIndex].likes}}</div><div class="statBarRight" ng-if="places[placeIndex].dislikes !== 0">{{places[placeIndex].dislikes}}</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="list card" ng-if="placesSwiped.length == 0">

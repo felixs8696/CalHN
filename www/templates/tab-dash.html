@@ -1,20 +1,72 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="Dashboard" no-scroll>
   <ion-content class="padding">
-    <div ng-switch on="listEmpty">
-      <div class="list card" on-swipe-left="swipeLeft();" on-swipe-right="swipeRight();" ng-switch-default>
-        <div class="item item-divider">{{currentPlace.name}}</div>
-        <div class="item item-body">
-          <img src="{{currentPlace.image}}" width = "100%">
-          <p>{{currentPlace.part}}</p>
+    <div ng-if="!editingNewCard">
+      <div ng-if="!emptyList()">
+        <div class="list card" on-swipe-left="swipeLeft();" on-swipe-right="swipeRight();">
+          <div class="item item-divider">
+            {{currentPlace.name}}
+            <!-- DO SOMETHING WHEN ITEM GETS TOO MANY FLAGS-->
+            <div class="item-icon-right" style="color:darkred" ng-click="flag()"><i class="icon ion-ios-flag"></i></div>
+          </div>
+          <div class="item item-body">
+            <img src="{{currentPlace.image}}" width = "100%">
+            <p>{{currentPlace.activity}}</p>
+          </div>
+          <!-- ADD CARD FUNCTION -->
+          <div class="addCard" ng-click="startEditingNewCard()"><i class="icon ion-plus"></i> Add Your Own Card</div>
         </div>
+        <ul class="controls">
+          <li class="dislike" ng-click="swipeLeft()">
+            <div class="button-dislike">
+              <a class="ion-close"></a>
+            </div>
+          </li><li class="like" ng-click="swipeRight()">
+          <div class="button-like">
+            <a class="ion-checkmark"></a>
+          </div>
+        </li>
+        </ul>
       </div>
-      <div class="list card" ng-switch-when="Yes">
+      <div class="list card" ng-if="emptyList()">
         <div class="item item-divider">Out of Places</div>
         <div class="item item-body">
           <img src="http://www.vittyly.com/wp-content/uploads/2015/02/sad-puppy-face.jpg" width = "100%">
           <p>There are no more places to display. Please refresh the page or come back later to see if any more were added.</p>
         </div>
+        <div class="addCard" ng-click="startEditingNewCard()"><i class="icon ion-plus"></i> Add Your Own Card</div>
       </div>
+    </div>
+    <!-- IMPLEMENT SWITCH FUNCTION -->
+    <div class="newCard" ng-if="editingNewCard">
+      <!-- SUBMIT CARD FUNCTION -->
+      <form name="newCardForm" novalidate>
+        <div class="list card">
+          <div class="item item-divider">
+            <label class="item item-input">
+              <input ng-model="newCard.name" name="LocationName" type="text" placeholder="Location" required ng-maxlength="40">
+            </label>
+            <div class="item-icon-right" style="color:darkred"><i class="icon ion-ios-flag"></i></div>
+          </div>
+          <div class="item item-body" style="padding: 2vw;">
+            <!-- UPLOAD PHOTO FUNCTION -->
+            <div class="addPhoto" ng-controller="PictureCtrl" style="text-align: center;">
+              <p style="font-size:6vw; font-weight: bold; text-align: center; margin: 3vw;">Upload a Photo</p>
+              <img ng-show="imgURI === undefined" ng-src="http://www.saanviorganics.com/gallery_icon.jpg" width = "100%">
+              <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" width = "100%">
+              <button class="button" ng-click="takePicture()">Take Photo</button>
+              <button class="button" ng-click="getPhoto(pictureSource.PHOTOLIBRARY)">Upload Photo</button>
+              <button class="button" ng-click="urlPaste()">From URL</button>
+              <label class="item item-input">
+                <input style="padding-top: 2vw; padding-bottom: 2vw;" ng-model="newCard.image" name="ImageURL" type="text" placeholder="Image URL..." ng-if="pastingURL">
+              </label>
+            </div>
+            <label class="item item-input">
+              <input ng-model="newCard.activity" name="Activity" type="text" placeholder="Activity" required ng-maxlength="40">
+            </label>
+          </div>
+        </div>
+      </form>
+      <div class="addCard" ng-click="submitNewCard()"><i class="icon ion-plus"></i> Add This Card</div>
     </div>
   </ion-content>
 </ion-view>
