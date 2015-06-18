@@ -1,8 +1,29 @@
 angular.module('starter.controllers', [])
+    .run(function($rootScope) {
+        $rootScope.places = [
+            {
+                index: 0,
+                name: "Unit 1",
+                image: "http://www.ehdd.com/sites/ehdd2/images/3187/UCB1&2Courtyard3.jpg",
+                part: "Christian Hall",
+                likes: 0,
+                dislikes: 0,
+                flagged: 0
+            },
+            {
+                index: 1,
+                name: "Unit 1 Slottman",
+                image: "https://c1.staticflickr.com/5/4105/5051519361_6e18ec0907_b.jpg",
+                part: "Mini-Suite",
+                likes: 0,
+                dislikes: 0,
+                flagged: 0
+            }
+        ];
+        $rootScope.placesSwiped = [];
+    })
 
-.controller('DashCtrl', function($scope) {
-      var previousLastIndex = 0;
-      $scope.placesCopy = [];
+.controller('DashCtrl', function($scope, $rootScope) {
       var shuffle = function(array) {
         var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -21,40 +42,15 @@ angular.module('starter.controllers', [])
 
         return array;
       }
-      $scope.places = [
-        {
-          name: "Unit 1",
-          image: "http://www.ehdd.com/sites/ehdd2/images/3187/UCB1&2Courtyard3.jpg",
-          part: "Christian Hall",
-          likes: 0,
-          dislikes: 0,
-            swiped: false
-        },
-        {
-          name: "Unit 1 Slottman",
-          image: "https://c1.staticflickr.com/5/4105/5051519361_6e18ec0907_b.jpg",
-          part: "Mini-Suite",
-          likes: 0,
-          dislikes: 0,
-            swiped: false
-        }
-      ];
+        
+        var previousLastIndex = 0;
+        $scope.placesCopy = [];
       $scope.placesCopy = shuffle($scope.placesCopy.concat($scope.places.slice(previousLastIndex, $scope.places.length)));
       $scope.currentPlace = $scope.placesCopy.pop();
       $scope.listEmpty = "No";
       $scope.newPlaces = function() {
         $scope.placesCopy = shuffle($scope.placesCopy.concat($scope.places.slice(previousLastIndex, $scope.places.length)));
       };
-
-        <!-- Update place objects to show that they have been swiped before -->
-        $scope.trueSwipe = function(place) {
-            console.log("truSwipe");
-            place.swiped = true;
-        };
-        $scope.isSwiped = function(place) {
-            return place.swiped;
-        };
-        <!-- ------------------------------------------------------------- -->
 
       var setCurrentPlace = function() {
         if ($scope.placesCopy.length == 0) {
@@ -63,21 +59,19 @@ angular.module('starter.controllers', [])
           $scope.listEmpty = "No";
           $scope.currentPlace = $scope.placesCopy.pop();
         }
-          for (var place in $scope.places) {
-              console.log("", place.name, place.swiped);
+          for (var i = 0; i < $scope.placesSwiped.length; i++) {
+              console.log($scope.places[i].name, $scope.places[i].likes);
           }
       };
         <!-- Left and right swiping functions -->
       $scope.swipeLeft = function () {
         $scope.currentPlace.dislikes += 1;
-          console.log($scope.currentPlace.name + ": -" + $scope.currentPlace.dislikes);
-          $scope.trueSwipe($scope.currentPlace);
+          $scope.placesSwiped.push($scope.currentPlace);
         setCurrentPlace();
       };
       $scope.swipeRight = function() {
         $scope.currentPlace.likes += 1;
-          console.log($scope.currentPlace.name + ": " + $scope.currentPlace.likes);
-          $scope.trueSwipe($scope.currentPlace);
+          $scope.placesSwiped.push($scope.currentPlace);
         setCurrentPlace();
       };
         <!-- ---------------------------------------------------------- -->
@@ -86,6 +80,10 @@ angular.module('starter.controllers', [])
       };
 
     })
+
+    .controller('StatsCtrl', function($scope, $rootScope) {
+
+})
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {

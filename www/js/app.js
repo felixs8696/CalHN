@@ -53,7 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-stats': {
           templateUrl: 'templates/tab-stats.html',
-          controller: 'DashCtrl'
+          controller: 'StatsCtrl'
         }
       }
     })

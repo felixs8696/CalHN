@@ -1,13 +1,13 @@
 <ion-view view-title="Statistics">
   <ion-content>
     <!--<div ng-switch on="okStats">-->
-      <div class="list card" ng-repeat="place in places">
-        <div ng-if="isSwiped(place)">
+      <div class="list card" ng-repeat="place in placesSwiped">
+        <div>
           <div class="item item-divider">{{place.name}}: {{place.part}}</div>
           <div class="item item-body"></div>
         </div>
       </div>
-      <div class="list card" ng-if="places.length == 0">
+      <div class="list card" ng-if="placesSwiped.length == 0">
         <div class="item item-divider">Insufficient Data</div>
         <div class="item item-body">
           <p>You have not yet swiped any places. Please go to the dashboard to vote on your favorite places at Cal.</p>
